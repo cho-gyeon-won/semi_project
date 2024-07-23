@@ -39,9 +39,6 @@
                         <input type="button" class="button_login" onclick="EnterUser()" value="로그인">
                         <button type="button" class="button_create_user" onclick="CreateUser()">회원가입</button>
                     </div>
-                    <p class="forgot_id">아이디를 잃어버리셨나요? &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <a class="search_id" href="/search/id/">아이디찾기</a>&nbsp;&nbsp;&nbsp;
-                    <a class="search_pw" href="/search/pw/">비밀번호찾기</a></p>
                 </form>
             </div>
         </div>
@@ -61,6 +58,9 @@
             form.submit(); 
         }
         
+    }
+    function CreateUser() {
+        location.href = "/User/Agree"; 
     }
 	</script>
 	<%@ include file = "../include/footer.jsp"%>

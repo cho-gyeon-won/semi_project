@@ -206,9 +206,12 @@
                       <div class="col-md-6 col-lg-4">
                         <div class="form-group">
                         <h3>실행하신 작업이 실패하였습니다</h3>
-		   				
-						<a href="javascript:history.back();">뒤로가기</a>
-   
+		   				<button class="btn btn-success" onclick="redirectToUpdate()">이전 페이지로 돌아가기</button>
+				        <script type="text/javascript">
+				        function redirectToUpdate() {
+				            window.location.href = "/product_admin/product_listUpdate";
+				        }
+				       </script>
                 </div>
               </div>
             </div>

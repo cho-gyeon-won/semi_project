@@ -206,6 +206,12 @@
                       <div class="col-md-6 col-lg-4">
                         <div class="form-group">
                         <h3>실행하신 작업을 성공하였습니다.</h3>
+		   				<button class="btn btn-success" onclick="redirectToUpdate()">이전 페이지로 돌아가기</button>
+				       <script type="text/javascript">
+				        function redirectToUpdate() {
+				            window.location.href = "/product_admin/product_listUpdate";
+				        }
+				       </script>
    
                 </div>
               </div>

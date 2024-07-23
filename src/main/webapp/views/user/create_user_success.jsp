@@ -71,7 +71,7 @@
                 <h3>회원가입 성공! 로그인해주세요.</h3>
             </div>
             <div>
-                <a href="/Index">로그인</a>
+                <a href="/User/Login">로그인</a>
             </div>
         </div>
     </section>
