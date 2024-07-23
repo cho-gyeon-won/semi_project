@@ -11,69 +11,64 @@ import java.util.List;
 import java.util.Map;
 
 public class Order_adminDao {
-	
-	
-	public List<Map<String, Object>> userOrderList(int userNo, Connection conn){
-	      PreparedStatement pstmt = null;
-	      ResultSet rs = null;
-	      List<Map<String, Object>> result = new ArrayList<Map<String,Object>>();
-	      try {
-	         String sql = "SELECT * FROM `user` u";
-	         sql += " JOIN buy b ON b.user_no = u.user_no";
-	         sql += " JOIN shiplist sl ON sl.ship_no = b.ship_no AND sl.user_no = u.user_no";
-	         sql += " JOIN orderlist ol ON ol.order_no = b.order_no";
-	         sql += " JOIN product p ON ol.prod_no = p.prod_no";
-	         sql += " JOIN category c ON p.cate_no = c.cate_no";
-	         sql += " WHERE u.user_no = ?";
-	         pstmt = conn.prepareStatement(sql);
-	         pstmt.setInt(1, userNo);
-	         rs = pstmt.executeQuery();
-	         
-	         while(rs.next()) {
-	            Map<String, Object> info = new HashMap<>();
-	            info.put("주문번호", rs.getString("b.order_no"));
-	            info.put("회원명", rs.getString("u.user_name"));
-	            info.put("수취인", rs.getString("sl.ship_name"));
-	            info.put("주문일자", rs.getTimestamp("b.order_date").toLocalDateTime());
-	            info.put("주문상태", rs.getString("b.order_status"));
-	            result.add(info);
-	         }
-	      }catch (Exception e) {
-	         e.printStackTrace();
-	      }finally {
-	         close(rs);
-	         close(pstmt);
-	      }return result;
-	}
-	      
-	      
 	public List<Map<String, Object>> selectOrderList(Connection conn){
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		List<Map<String, Object>> result = new ArrayList<Map<String,Object>>();
 		try {
-			String sql = "SELECT * FROM `user` u";
-			sql += " JOIN buy b ON b.user_no = u.user_no";
-			sql += " JOIN shiplist sl ON sl.ship_no = b.ship_no AND sl.user_no = u.user_no";
-			sql += " JOIN orderlist ol ON ol.order_no = b.order_no";
-			sql += " JOIN product p ON ol.prod_no = p.prod_no";
-			sql += " JOIN category c ON p.cate_no = c.cate_no";
+			String sql = "SELECT b.order_no, b.ship_no, b.user_no, s.ship_name, u.user_name, b.order_comment, b.order_date, b.order_status";
+			sql += " FROM buy b";
+			sql += " JOIN (";
+			sql += " SELECT DISTINCT order_no";
+			sql += " FROM orderlist";
+			sql += " ) ol ON b.order_no = ol.order_no";
+			sql += " JOIN shiplist s ON b.ship_no = s.ship_no";
+			sql += " JOIN `user` u ON b.user_no = u.user_no";
+			
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
 				Map<String, Object> info = new HashMap<>();
-				info.put("주문번호", rs.getString("b.order_no"));
+				info.put("주문번호", rs.getString("order_no"));
 				info.put("회원명", rs.getString("u.user_name"));
-				info.put("수취인", rs.getString("sl.ship_name"));
-				info.put("주문일자", rs.getTimestamp("b.order_date").toLocalDateTime());
-				info.put("주문상태", rs.getString("b.order_status"));
-//				info.put("상품명", rs.getString("p.prod_name"));
-//				info.put("상품가격", rs.getInt("p.prod_price"));
-//				info.put("구매수량", rs.getInt("ol.order_count"));
-//				info.put("배송지 주소", rs.getString("sl.ship_address"));
-//				info.put("공동현관 비밀번호", rs.getInt("sl.front_door_pw"));
-//				info.put("요청사항", rs.getString("b.order_comment"));
+				info.put("수취인", rs.getString("s.ship_name"));
+				info.put("주문일자", rs.getTimestamp("order_date").toLocalDateTime());
+				info.put("주문상태", rs.getString("order_status"));
+				result.add(info);
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return result;
+	}
+	public List<Map<String, Object>> userOrderList(int userNo, Connection conn){
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<Map<String, Object>> result = new ArrayList<Map<String,Object>>();
+		try {
+			String sql = "SELECT b.order_no, b.ship_no, b.user_no, s.ship_name, u.user_name, b.order_comment, b.order_date, b.order_status";
+			sql += " FROM buy b";
+			sql += " JOIN (";
+			sql += " SELECT DISTINCT order_no";
+			sql += " FROM orderlist";
+			sql += " ) ol ON b.order_no = ol.order_no";
+			sql += " JOIN shiplist s ON b.ship_no = s.ship_no";
+			sql += " JOIN `user` u ON b.user_no = u.user_no";
+			sql += " WHERE u.user_no = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				Map<String, Object> info = new HashMap<>();
+				info.put("주문번호", rs.getString("order_no"));
+				info.put("회원명", rs.getString("u.user_name"));
+				info.put("수취인", rs.getString("s.ship_name"));
+				info.put("주문일자", rs.getTimestamp("order_date").toLocalDateTime());
+				info.put("주문상태", rs.getString("order_status"));
 				result.add(info);
 			}
 		}catch (Exception e) {

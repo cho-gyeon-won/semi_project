@@ -215,8 +215,6 @@
                             <th>배송지 주소</th>
                             <th>공동현관 비밀번호</th>
 							<th>요청사항</th>
-							<th>배송 버튼</th>
-							<th>배송 완료 버튼</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -234,14 +232,15 @@
                                     <td><p><%= list.get(i).get("요청사항") %></p></td>
                                     
                                     <input type="hidden" id="order_no" name="order_no" value="<%=list.get(i).get("주문번호") %>">
-									<td><input type="button" class="btn btn-success" value="배송 시작" onclick="orderDeliveryAccept('<%= list.get(i).get("주문번호") %>');"></td>
-                                    <td><input type="button" class="btn btn-success" value="배송 완료" onclick="orderDeliveryComplete('<%= list.get(i).get("주문번호") %>');"></td>
-
+                                    <%}%>
+									
+									
 									<script>
-    									function orderDeliveryAccept(order_no){
+    									function orderDeliveryAccept(){
         								var result = confirm("발송하시겠습니까?");
+        								
         								if(result){
-            								let url = '/order_admin/orderDeliveryAcceptEnd?order_no='+ order_no;
+            								let url = '/order_admin/orderDeliveryAcceptEnd?order_no='+ document.getElementById('order_no').value;
             								open(url, '_self');
         								} else {
             							alert("발송을 취소합니다.");
@@ -250,7 +249,7 @@
     									function orderDeliveryComplete(order_no){
     										var result = confirm("배송을 완료하였습니까?");
     										if(result){
-    											let url = '/order_admin/orderDeliveryCompleteEnd?order_no='+ order_no;
+    											let url = '/order_admin/orderDeliveryCompleteEnd?order_no='+ document.getElementById('order_no').value;
     											open(url, '_self');
     										}else{
     											alert("작업을 취소합니다.");
@@ -259,11 +258,12 @@
 									</script>
 
                                 </tr>
-                                <%}%>
                               	
                         </tbody>
                         
                       </table>
+                                <input type="button" class="btn btn-success" value="배송 시작" onclick="orderDeliveryAccept();">
+                                <input type="button" class="btn btn-success" value="배송 완료" onclick="orderDeliveryComplete();">
                     </div>
                   </div>
                 </div>
@@ -274,8 +274,28 @@
 
         <footer class="footer">
           <div class="container-fluid d-flex justify-content-between">
+            <nav class="pull-left">
+              <ul class="nav">
+                <li class="nav-item">
+                  <a class="nav-link" href="http://www.themekita.com">
+                    ThemeKita
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#"> Help </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#"> Licenses </a>
+                </li>
+              </ul>
+            </nav>
+            <div class="copyright">
+              2024, made with <i class="fa fa-heart heart text-danger"></i> by
+              <a href="http://www.themekita.com">ThemeKita</a>
+            </div>
             <div>
-              Distributed by 꺼냉.
+              Distributed by
+              <a target="_blank" href="https://themewagon.com/">ThemeWagon</a>.
             </div>
           </div>
         </footer>

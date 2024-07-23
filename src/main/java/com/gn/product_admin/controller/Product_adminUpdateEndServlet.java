@@ -46,11 +46,10 @@ public class Product_adminUpdateEndServlet extends HttpServlet {
 			pa.setProd_revise_image(reviseName);
 			
 			int result = new Product_adminService().updateProduct(pa);
-			RequestDispatcher view = request.getRequestDispatcher("/product_admin/product_fail.jsp");
-			if(result > 0) {
-				view = request.getRequestDispatcher("/product_admin/product_success.jsp");
+			
+			
+			RequestDispatcher view = request.getRequestDispatcher("/product_admin/product_success.jsp");
 				view.forward(request, response);
-			}
 		}
 		else {
 			response.sendRedirect("/product_admin/product_list");
