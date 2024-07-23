@@ -11,6 +11,42 @@ import java.util.List;
 import java.util.Map;
 
 public class Order_adminDao {
+	
+	
+	public List<Map<String, Object>> userOrderList(int userNo, Connection conn){
+	      PreparedStatement pstmt = null;
+	      ResultSet rs = null;
+	      List<Map<String, Object>> result = new ArrayList<Map<String,Object>>();
+	      try {
+	         String sql = "SELECT * FROM `user` u";
+	         sql += " JOIN buy b ON b.user_no = u.user_no";
+	         sql += " JOIN shiplist sl ON sl.ship_no = b.ship_no AND sl.user_no = u.user_no";
+	         sql += " JOIN orderlist ol ON ol.order_no = b.order_no";
+	         sql += " JOIN product p ON ol.prod_no = p.prod_no";
+	         sql += " JOIN category c ON p.cate_no = c.cate_no";
+	         sql += " WHERE u.user_no = ?";
+	         pstmt = conn.prepareStatement(sql);
+	         pstmt.setInt(1, userNo);
+	         rs = pstmt.executeQuery();
+	         
+	         while(rs.next()) {
+	            Map<String, Object> info = new HashMap<>();
+	            info.put("주문번호", rs.getString("b.order_no"));
+	            info.put("회원명", rs.getString("u.user_name"));
+	            info.put("수취인", rs.getString("sl.ship_name"));
+	            info.put("주문일자", rs.getTimestamp("b.order_date").toLocalDateTime());
+	            info.put("주문상태", rs.getString("b.order_status"));
+	            result.add(info);
+	         }
+	      }catch (Exception e) {
+	         e.printStackTrace();
+	      }finally {
+	         close(rs);
+	         close(pstmt);
+	      }return result;
+	}
+	      
+	      
 	public List<Map<String, Object>> selectOrderList(Connection conn){
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;

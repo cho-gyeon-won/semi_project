@@ -26,13 +26,13 @@
 <div class="container-fluid mb-5">
     <div class="row border-top px-xl-5">
         <div class="col-lg-3 d-none d-lg-block" style="max-width:280px">
-            <a class="btn shadow-none d-flex align-items-center justify-content-between bg-primary text-white w-100" href="/MyPage/Point" style="height: 65px; margin-top: 1px; padding: 0 30px;">
+            <a class="btn shadow-none d-flex align-items-center justify-content-between bg-primary text-white w-100" href="#" style="height: 65px; margin-top: 1px; padding: 0 30px;">
                 <h2 style="color: white;">마이페이지</h2>
             </a>
             <nav class="collapse show navbar navbar-vertical navbar-light align-items-start p-0 border border-left-0 border-top-0 border-bottom-" id="navbar-vertical">
                 <div class="navbar-nav w-100" style="height: 410px;">
                     <a href="/MyPage/PointHistory" class="nav-item nav-link margin-left-5px">적립금</a>
-<!--                     <a href="/MyPage/OrderList" class="nav-item nav-link">주문내역</a> -->
+                    <a href="/MyPage/OrderList" class="nav-item nav-link">주문내역</a>
                     <a href="/MyPage/Edit" class="nav-item nav-link">회원정보수정</a>
                     <a href="/MyPage/ReviewList" class="nav-item nav-link">리뷰내역</a>
                 </div>

@@ -33,4 +33,10 @@ public class Order_adminService {
 		close(conn);
 		return result;
 	}
+	public List<Map<String, Object>> userOrderList(int userNo){
+		Connection conn = getConnection();
+		List<Map<String, Object>> result = new Order_adminDao().userOrderList(userNo, conn);
+		close(conn);
+		return result;
+	}
 }
