@@ -6,26 +6,28 @@ import static com.project.common.sql.JDBCTemplate.getConnection;
 import java.sql.Connection;
 
 import com.project.user.dao.OrderDao;
-import com.project.user.dao.ShipListDao;
 
 public class OrderService {
 	
-	public static int cancelPoint(int userNo, int cancelAmount) {
+
+	
+	public int cancelPoint(int userNo, int cancelAmount, String reason, String orderNo) {
 		Connection conn = getConnection();
-		int result = new OrderDao().cancelPoint(userNo, cancelAmount , conn);
+		int result = new OrderDao().cancelPoint(userNo, cancelAmount, reason, orderNo, conn);
 		close(conn);
 		return result;
 	}
 
-	public static void pointListInsert(int user_no, String reason, int minusPoint) {
+	public  int insertPointChange(int user_no, String reason, int minusPoint) {
 		Connection conn = getConnection();
-		new OrderDao().pointListInsert(user_no, reason, minusPoint , conn);
+		int result = new OrderDao().insertPointChange(user_no, reason, minusPoint , conn);
 		close(conn);
+		return result;
 	}
 	
 	public static void deleteCartItems (int user_no, int[] prodNos) {
 		Connection conn = getConnection();
-		new OrderDao().deleteCartItems(user_no, prodNos, conn);
+		OrderDao.deleteCartItems(user_no, prodNos, conn);
 		close(conn);
 	}
 	

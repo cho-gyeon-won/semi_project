@@ -1,55 +1,32 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
-<!-- Basic -->
 
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="author" content="">
+<title>장바구니</title>
+<!-- 여기에 필요한 CSS 파일들을 링크합니다 -->
+<link rel="shortcut icon" href="../../images/favicon.ico" type="image/x-icon">
+<link rel="apple-touch-icon" href="../../images/apple-touch-icon.png">
 <link rel="stylesheet" href="../../css/bootstrap.min.css">
 <link rel="stylesheet" href="../../css/style.css">
 <link rel="stylesheet" href="../../css/responsive.css">
 <link rel="stylesheet" href="../../css/custom.css">
-<link rel="stylesheet" href="../../css/login.css">
 <link rel="stylesheet" href="../../css/search.css">
+<link rel="stylesheet" href="../../css/loginEnd.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" />
-
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
-    <!-- Mobile Metas -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- Site Metas -->
-    <title>장바구니</title>
-    <meta name="keywords" content="">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <!-- Site Icons -->
-    <link rel="shortcut icon" href="../../images/favicon.ico" type="image/x-icon">
-    <link rel="apple-touch-icon" href="../../images/apple-touch-icon.png">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="../../css/bootstrap.min.css">
-    <!-- Site CSS -->
-    <link rel="stylesheet" href="../../css/style.css">
-    <!-- Responsive CSS -->
-    <link rel="stylesheet" href="../../css/responsive.css">
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="../../css/custom.css">
-    <link rel="stylesheet" href="../../css/search.css">
-    <link rel="stylesheet" href="../../css/loginEnd.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" />
     
-
 </head>
 
 <body>
-    <!-- Start Main Top -->
 
 	<%@ include file="../include/nav.jsp" %>
 
-    <!-- Start All Title Box -->
     <div class="all-title-box">
         <div class="container">
             <div class="row">
@@ -59,7 +36,6 @@
             </div>
         </div>
     </div>
-    <!-- End All Title Box -->
 
     <!-- Start Cart  -->
     <br>
@@ -137,7 +113,7 @@
 					                    <label class="price"><%= cart.get(i).getProd_price() %></label>원
 					                </td>
 					                <td class="quantity-box">
-					                    <input type="number" size="4" name="quantities" value="<%= cart.get(i).getCart_quantity() %>" min="0" max="<%= cart.get(i).getProd_inventory() %>" step="1" class="c-input-text qty text" onchange="updateTotals()">
+					                    <input type="number" size="4" name="quantities" value="<%= cart.get(i).getCart_quantity() %>" min="0" max="<%= cart.get(i).getProd_inventory() %>" step="1" class="c-input-text qty text" onkeydown="return false" onpaste="return false" oninput="return false">
 					                    <input type="hidden" name="prod_nos" value="<%= cart.get(i).getProd_no() %>">
 					                </td>
 					                <td class="total-pr">
@@ -224,6 +200,20 @@ function updateTotals() {
     document.getElementById('totalPrice').textContent = totalPrice;
     document.getElementById('totalQuantity').textContent = totalQuantity;
 }
+
+
+document.querySelectorAll('.qty').forEach(function(input) {
+    input.addEventListener('keydown', function(event) {
+        event.preventDefault();
+    });
+    input.addEventListener('paste', function(event) {
+        event.preventDefault();
+    });
+    input.addEventListener('input', function(event) {
+        event.preventDefault();
+    });
+});
+
 
 function selectAll(isChecked) {
     document.querySelectorAll('input[name="item_check"]').forEach(function(checkbox) {

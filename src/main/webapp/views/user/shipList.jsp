@@ -1,38 +1,28 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
-<!-- Basic -->
 
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
-<!-- Mobile Metas -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
-<!-- Site Metas -->
-<title>나의 배송지 관리</title>
 <meta name="keywords" content="">
 <meta name="description" content="">
 <meta name="author" content="">
-
-<!-- Site Icons -->
+<title>나의 배송 관리</title>
+<!-- 여기에 필요한 CSS 파일들을 링크합니다 -->
 <link rel="shortcut icon" href="../../images/favicon.ico" type="image/x-icon">
 <link rel="apple-touch-icon" href="../../images/apple-touch-icon.png">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="../../css/bootstrap.min.css">
-    <!-- Site CSS -->
-    <link rel="stylesheet" href="../../css/style.css">
-    <!-- Responsive CSS -->
-    <link rel="stylesheet" href="../../css/responsive.css">
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="../../css/custom.css">
-    <link rel="stylesheet" href="../../css/search.css">
-    <link rel="stylesheet" href="../../css/loginEnd.css">
-
+<link rel="stylesheet" href="../../css/bootstrap.min.css">
+<link rel="stylesheet" href="../../css/style.css">
+<link rel="stylesheet" href="../../css/responsive.css">
+<link rel="stylesheet" href="../../css/custom.css">
+<link rel="stylesheet" href="../../css/search.css">
+<link rel="stylesheet" href="../../css/loginEnd.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" />
+    
 </head>
+
 
 <body>
 <!-- shipList start -->

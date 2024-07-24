@@ -28,13 +28,13 @@ public class MyPagePointHistoryServlet extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/User/Login");
             return;
         }
-
+        
         User user = (User) session.getAttribute("user");
         int userNo = user.getUser_no();
-
+        int userPoint = new UserService().userPoint(userNo);
         UserService userService = new UserService();
         List<Point> pointHistory = userService.getPointHistory(userNo);
-
+        request.setAttribute("userPoint", userPoint);
         request.setAttribute("pointHistory", pointHistory);
         request.getRequestDispatcher("/views/mypage/mypage_point.jsp").forward(request, response);
     }

@@ -216,7 +216,7 @@
                         id="add-row"
                         class="display table table-striped table-hover">
                         
-                          	<img src="../upload/<%=iq.getInquiry_img_reg() %>" width="200px" height="200px"><br>
+                          	<img src="../upload/<%=iq.getInquiry_img_reg() %>"><br>
                           	<p><%=iq.getInquiry_content() %></p>
                       </table>
                       
@@ -226,7 +226,7 @@
                   
                 </div>
                 <%@page import="com.gn.inquiry_admin.vo.Inquiry_comment" %>
-                <%Inquiry_comment ic = (Inquiry_comment)request.getAttribute("adminInquiryCommentInfo");%>
+                <%List<Inquiry_comment> ic = (List<Inquiry_comment>)request.getAttribute("adminInquiryCommentInfo");%>
                 <div class="card">
                 	<div class="card-header">
                 		<div class="card-title">
@@ -241,10 +241,13 @@
                       <table
                         id="add-row"
                         class="display table table-striped table-hover">
-                        <%if(ic.getComment_content() != null) {%>
-                        	<p>관리자 : <%=ic.getComment_content() %></p>
-                        	<p>작성일 : <%=ic.getComment_reg_date() %></p>
-                        <%}else{%>
+                        <%if(!ic.isEmpty()) {
+                        for(int i = 0; i < ic.size(); i++){%>
+                        
+                        	<p>관리자 : <%=ic.get(i).getComment_content() %></p>
+                        	<p>작성일 : <%=ic.get(i).getComment_reg_date() %></p>
+                        	
+                        <%}}else{%>
                         <p>댓글이 없습니다.</p>
                         <%} %>
                         <tbody>
@@ -258,6 +261,7 @@
                   </div>
                   
                 </div>
+                
                 <div class="card">
                 	<div class="card-header">
                 		<div class="card-title">
@@ -281,6 +285,9 @@
                           ></textarea><br>
                           <input type="hidden" id="inquiry_no" name="inquiry_no" value="<%= iq.getInquiry_no() %>">
                           <input type="button" class="btn btn-success" value="확인" onclick="inquiry_comment_addBtn();">
+                          
+							
+
                           </form>
                           <script type="text/javascript">
     						function inquiry_comment_addBtn(){
@@ -307,8 +314,28 @@
 
         <footer class="footer">
           <div class="container-fluid d-flex justify-content-between">
+            <nav class="pull-left">
+              <ul class="nav">
+                <li class="nav-item">
+                  <a class="nav-link" href="http://www.themekita.com">
+                    ThemeKita
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#"> Help </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#"> Licenses </a>
+                </li>
+              </ul>
+            </nav>
+            <div class="copyright">
+              2024, made with <i class="fa fa-heart heart text-danger"></i> by
+              <a href="http://www.themekita.com">ThemeKita</a>
+            </div>
             <div>
-              Distributed by 꺼냉.
+              Distributed by
+              <a target="_blank" href="https://themewagon.com/">ThemeWagon</a>.
             </div>
           </div>
         </footer>

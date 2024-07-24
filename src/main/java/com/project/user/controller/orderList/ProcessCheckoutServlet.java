@@ -67,11 +67,13 @@ public class ProcessCheckoutServlet extends HttpServlet {
             String order_no = generateOrderNo();
             System.out.println("order_no: "+order_no);
             String reason = "상품 구매";
+            
+            
             int minusPoint = -totalPrice;
-            int result = new OrderService().OrderProcess(user_no, totalPrice, ship_no, prodNos, prodQuantities, order_comment, order_no);
+            int result = OrderService.OrderProcess(user_no, totalPrice, ship_no, prodNos, prodQuantities, order_comment, order_no);
             if (result > 0) {
-                new OrderService().deleteCartItems(user_no, prodNos); //  포인트 차감까지 성공시 장바구니 내역 삭제
-                new OrderService().pointListInsert(user_no, reason, minusPoint);  // 포인트 변동 테이블에 내역 insert
+                OrderService.deleteCartItems(user_no, prodNos); //  포인트 차감까지 성공시 장바구니 내역 삭제
+                new OrderService().insertPointChange(user_no, reason, minusPoint);  // 포인트 변동 테이블에 내역 insert
                 response.sendRedirect("/views/user/order-complete.jsp");
 
             } else {

@@ -1,6 +1,10 @@
 package com.project.user.dao;
 
 import static com.project.common.sql.JDBCTemplate.close;
+import static com.project.common.sql.JDBCTemplate.rollback;
+import static com.project.common.sql.JDBCTemplate.close;
+
+
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,14 +12,60 @@ import java.sql.SQLException;
 
 public class OrderDao {
 	
-	public static int cancelPoint(int userNo, int cancelAmount, Connection conn) {
+	public int cancelPoint(int userNo, int cancelAmount, String reason, String orderNo, Connection conn) {
 		PreparedStatement pstmt = null;
-        int result = 0;
+		int result = 0;
 		try {
-        	String sql = "UPDATE `user` SET user_point = user_point + ? WHERE user_no = ?";
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1, cancelAmount);
-            pstmt.setInt(2, userNo);
+			String sql = "UPDATE `user` SET user_point = user_point + ? WHERE user_no = ?";
+			conn.setAutoCommit(false);
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, cancelAmount);
+			pstmt.setInt(2, userNo);
+			result = pstmt.executeUpdate();
+	
+	        if(result > 0) {
+	            String sq2 = "UPDATE `buy` SET order_status = '결제 취소' WHERE order_no = ? AND order_status = '발송 대기중'";
+	            pstmt = conn.prepareStatement(sq2);
+	            pstmt.setString(1, orderNo);
+	            result = pstmt.executeUpdate();
+            
+	            if(result > 0) {
+	            	String sq3 = "INSERT INTO point (user_no, point_reason, point_change) VALUES (?,?,?)";
+	                pstmt = conn.prepareStatement(sq3);
+	                
+	                pstmt.setInt(1, userNo);
+	                pstmt.setString(2, reason);
+	                pstmt.setInt(3, cancelAmount);
+	                result = pstmt.executeUpdate();
+	            }
+	        } else {
+	        	result = 0;
+        }
+		conn.commit();
+
+        }catch (Exception e1) {
+			e1.printStackTrace();
+		}try {
+			conn.rollback();
+		}catch (SQLException e2) {
+			e2.printStackTrace();
+		}
+		finally {
+			close(pstmt);
+		}return result;
+	}
+	
+		
+	public int insertPointChange(int user_no, String reason, int minusPoint, Connection conn) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+        try {
+            String sqlDelete = "INSERT INTO point (user_no, point_reason, point_change) VALUES (?,?,?)";
+            pstmt = conn.prepareStatement(sqlDelete);
+            
+            pstmt.setInt(1, user_no);
+            pstmt.setString(2, reason);
+            pstmt.setInt(3, minusPoint);
             result = pstmt.executeUpdate();
             
         } catch (SQLException e) {
@@ -23,27 +73,7 @@ public class OrderDao {
 		} finally {
             close(pstmt);
         }
-		return result;
-		
-	}
-	
-		
-	public void pointListInsert(int user_no, String reason, int minusPoint, Connection conn) {
-        PreparedStatement pstmt = null;
-        try {
-            String sqlDelete = "INSERT INTO point (user_no, point_reason, point_change) VALUES (?, ?, ?)";
-            pstmt = conn.prepareStatement(sqlDelete);
-            
-            pstmt.setInt(1, user_no);
-            pstmt.setString(2, reason);
-            pstmt.setInt(3, minusPoint);
-            pstmt.executeUpdate();
-            
-        } catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-            close(pstmt);
-        }
+        return result;
 	}
 	
     public static void deleteCartItems(int user_no, int[] prodNos, Connection conn) {

@@ -1,6 +1,7 @@
 package com.gn.inquiry_admin.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -25,7 +26,7 @@ public class Inquiry_adminInquiryServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int inquiryNo = Integer.parseInt(request.getParameter("inquiry_no"));
 		Inquiry iq = new Shop_userService().infoInquiry(inquiryNo);
-		Inquiry_comment ic = new InquiryService().selectInquiryComment(inquiryNo);
+		List<Inquiry_comment> ic = new InquiryService().selectInquiryComment(inquiryNo);
 		RequestDispatcher view = null;
 		if(iq != null) {
 			request.setAttribute("adminInquiryInfo", iq);

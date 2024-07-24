@@ -1,40 +1,28 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
-<!-- Basic -->
 
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
-    <!-- Mobile Metas -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- Site Metas -->
-    <title>주문완료 페이지</title>
-    <meta name="keywords" content="">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <!-- Site Icons -->
-    <link rel="shortcut icon" href="../../images/favicon.ico" type="image/x-icon">
-    <link rel="apple-touch-icon" href="../../images/apple-touch-icon.png">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="../../css/bootstrap.min.css">
-    <!-- Site CSS -->
-    <link rel="stylesheet" href="../../css/style.css">
-    <!-- Responsive CSS -->
-    <link rel="stylesheet" href="../../css/responsive.css">
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="../../css/custom.css">
-    <link rel="stylesheet" href="../../css/search.css">
-    <link rel="stylesheet" href="../../css/loginEnd.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" />
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="author" content="">
+<title>주문 완료</title>
+<!-- 여기에 필요한 CSS 파일들을 링크합니다 -->
+<link rel="shortcut icon" href="../../images/favicon.ico" type="image/x-icon">
+<link rel="apple-touch-icon" href="../../images/apple-touch-icon.png">
+<link rel="stylesheet" href="../../css/bootstrap.min.css">
+<link rel="stylesheet" href="../../css/style.css">
+<link rel="stylesheet" href="../../css/responsive.css">
+<link rel="stylesheet" href="../../css/custom.css">
+<link rel="stylesheet" href="../../css/search.css">
+<link rel="stylesheet" href="../../css/loginEnd.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" />
     
-
 </head>
+
 
 <body>
     <!-- Start Main Top -->
@@ -59,21 +47,20 @@
         <div class="container">
                         <div class="title-list">
                             <h1>결제 완료</h1>
-                <div class="pay_text">보유하신 포인트로 결제를 정상적으로 완료했습니다.<br>
-				주문 확인 후 빠른 시일내 배송해드리겠습니다.<br>
-				이용해주셔서 감사합니다.</div>
-				<hr class="pay_hr">
-                        </div>
-                <div class="col-sm-6 col-lg-6 mb-3">
-                <div class="col-12 d-flex shopping-box">
-                       		 <div class="list_aTag1">
-							<a href="/user/loginEnd" class="ml-auto btn hvr-hover">메인 홈으로 이동하기</a>
+			                <div class="pay_text" style="text-align: center;"><b>보유하신 포인트로 결제를 정상적으로 완료했습니다.<br>
+							주문 확인 후 빠른 시일내 배송해드리겠습니다.<br>
+							이용해주셔서 감사합니다.</b>
 							</div>
-							<div class="list_aTag2">
+							<hr class="pay_hr">
+                        </div>
+                <div class="col-12 d-flex justify-content-center shopping-box">
+                       		 <div class="list_aTag1">
+							<a href="/Index" class="ml-auto btn hvr-hover">메인 홈으로 이동하기</a>
+							</div>
+							<div class="list_aTag2 ml-2">
                         	<a href="/MyPage/PointHistory" class="ml-auto btn hvr-hover">마이페이지로 이동하기</a>
                         	</div>
-                        </div>
-              	</div>
+                </div>
               	</div>
               	</div>
 

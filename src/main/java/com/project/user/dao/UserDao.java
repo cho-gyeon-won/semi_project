@@ -16,40 +16,6 @@ import com.project.user.vo.User;
 
 public class UserDao {
     
-    public List<Review> getReviewList(int userNo, Connection conn) {
-        PreparedStatement pstmt = null;
-        ResultSet rs = null;
-        List<Review> reviewList = new ArrayList<>();
-        String sql = "SELECT review_no, prod_no, user_no, review_content, review_img_enroll, review_img_revise, review_date, review_star FROM user_review WHERE user_no = ?";
-
-        try {
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1, userNo);
-            rs = pstmt.executeQuery();
-
-            while (rs.next()) {
-                Review review = new Review();
-                review.setReviewNo(rs.getInt("review_no"));
-                review.setProdNo(rs.getInt("prod_no"));
-                review.setUserNo(rs.getInt("user_no"));
-                review.setReviewContent(rs.getString("review_content"));
-                review.setReviewImgEnroll(rs.getString("review_img_enroll"));
-                review.setReviewImgRevise(rs.getString("review_img_revise"));
-                review.setReviewDate(rs.getTimestamp("review_date"));
-                review.setReviewStar(rs.getInt("review_star"));
-                reviewList.add(review);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            close(rs);
-            close(pstmt);
-        }
-
-        return reviewList;
-    }
-	
-	
     public int addUser(User u, Connection conn) {
         PreparedStatement pstmt = null;
         int result = 0;
@@ -214,6 +180,60 @@ public class UserDao {
     	}finally {
     		close(pstmt);
     	}return result;
+    }
+    public int userPoint(int userNo, Connection conn) {
+    	PreparedStatement pstmt = null;
+    	int result = 0;
+    	ResultSet rs = null;
+    	try {
+    		String sql = "SELECT user_point FROM `user` WHERE user_no = ?";
+    		pstmt = conn.prepareStatement(sql);
+    		pstmt.setInt(1, userNo);
+    		
+    		rs = pstmt.executeQuery();
+    		if(rs.next()) {
+    			result = rs.getInt("user_point");
+    		}
+    	}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return result;
+    }
+    
+    
+    public List<Review> getReviewList(int userNo, Connection conn) {
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        List<Review> reviewList = new ArrayList<>();
+        String sql = "SELECT review_no, prod_no, user_no, review_content, review_img_enroll, review_img_revise, review_date, review_star FROM user_review WHERE user_no = ?";
+
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, userNo);
+            rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                Review review = new Review();
+                review.setReviewNo(rs.getInt("review_no"));
+                review.setProdNo(rs.getInt("prod_no"));
+                review.setUserNo(rs.getInt("user_no"));
+                review.setReviewContent(rs.getString("review_content"));
+                review.setReviewImgEnroll(rs.getString("review_img_enroll"));
+                review.setReviewImgRevise(rs.getString("review_img_revise"));
+                review.setReviewDate(rs.getTimestamp("review_date"));
+                review.setReviewStar(rs.getInt("review_star"));
+                reviewList.add(review);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close(rs);
+            close(pstmt);
+        }
+
+        return reviewList;
     }
 }
 

@@ -4,6 +4,8 @@ import static com.gn.common.sql.JDBCTemplate.close;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.gn.inquiry_admin.vo.Inquiry_comment;
 import com.gn.shop_user.vo.Inquiry;
@@ -48,20 +50,23 @@ public class InquiryDao {
 			close(pstmt);
 		}return result;
 	}
-	public Inquiry_comment selectInquiryComment(int inquiryNo, Connection conn) {
+	public List<Inquiry_comment> selectInquiryComment(int inquiryNo, Connection conn) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		Inquiry_comment result = new Inquiry_comment();
+		List<Inquiry_comment> result = new ArrayList<Inquiry_comment>();
 		try {
 			String sql = "SELECT * FROM `inquiry_comment` WHERE inquiry_no = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, inquiryNo);
 			rs = pstmt.executeQuery();
-			if(rs.next()) {
-				result.setInquiry_no(rs.getInt("inquiry_no"));
-				result.setComment_content(rs.getString("comment_content"));
-				result.setComment_reg_date(rs.getTimestamp("comment_reg_date").toLocalDateTime());
-				result.setComment_mod_date(rs.getTimestamp("comment_mod_date").toLocalDateTime());
+			while(rs.next()) {
+				Inquiry_comment resultVo = new Inquiry_comment(
+						rs.getInt("inquiry_no"),
+						rs.getString("comment_content"),
+						rs.getTimestamp("comment_reg_date").toLocalDateTime(),
+						rs.getTimestamp("comment_mod_date").toLocalDateTime()
+						);
+				result.add(resultVo);
 			}
 		}catch (Exception e) {
 			e.printStackTrace();

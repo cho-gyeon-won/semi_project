@@ -12,7 +12,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <!-- Site Metas -->
-<title>문의사항</title>
+<title>꺼냉 LOGIN</title>
 <meta name="keywords" content="">
 <meta name="description" content="">
 <meta name="author" content="">
@@ -55,7 +55,7 @@
                             </thead>
                         </table>
                         <%@page import="com.gn.inquiry_admin.vo.Inquiry_comment" %>
-                		<%Inquiry_comment ic = (Inquiry_comment)request.getAttribute("adminInquiryCommentInfo");%>
+                		<%List<Inquiry_comment> ic = (List<Inquiry_comment>)request.getAttribute("adminInquiryCommentInfo");%>
         					<img src="../../upload/<%= iq.getInquiry_img_mod() %>" alt="Image" width="200px" height="200px">
         					<p><%= iq.getInquiry_content() %></p>
                     </div>
@@ -78,12 +78,15 @@
     						</tr>
                             </thead>
                         </table>
-    							<%if(ic.getComment_content() != null) {%>
-                        			<p>관리자 : <%=ic.getComment_content() %></p>
-                        			<p>작성일 : <%=ic.getComment_reg_date() %></p>
-                        		<%}else{%>
-                        			<p>댓글이 없습니다.</p>
-                        		<%} %>
+    							<%if(!ic.isEmpty()) {
+                        for(int i = 0; i < ic.size(); i++){%>
+                        
+                        	<p>관리자 : <%=ic.get(i).getComment_content() %></p>
+                        	<p>작성일 : <%=ic.get(i).getComment_reg_date() %></p>
+                        	
+                        <%}}else{%>
+                        <p>댓글이 없습니다.</p>
+                        <%} %>
                     </div>
                 </div>
             </div>

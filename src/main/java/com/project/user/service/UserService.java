@@ -18,7 +18,7 @@ public class UserService {
         close(conn);
         return reviewList;
     }
-        
+	
 	public int createUser(User u) {
 		Connection conn = getConnection();
 		int result = new UserDao().addUser(u,conn);
@@ -54,5 +54,11 @@ public class UserService {
         List<Point> pointHistory = new UserDao().getPointHistory(userNo, conn);
         close(conn);
         return pointHistory;
+    }
+    public int userPoint(int userNo) {
+    	Connection conn = getConnection();
+    	int result = new UserDao().userPoint(userNo, conn);
+    	close(conn);
+    	return result;
     }
 }

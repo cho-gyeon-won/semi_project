@@ -25,7 +25,7 @@ public class Product_adminService {
 		Connection conn = getConnection();
 		int result = new Product_adminDao().updateProduct(pa,conn);
 		close(conn);
-		return 0;
+		return result;
 	}
 	public Product_admin infoProduct(int prodNo) {
 		Connection conn = getConnection();

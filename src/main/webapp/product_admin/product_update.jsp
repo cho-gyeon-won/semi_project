@@ -228,7 +228,7 @@
                           name="product_info" 
                           rows="5"><%=pa.getProd_info() %></textarea><br>
                         
-                        <label for="product_img">등록된 이미지 : <%=pa.getProd_revise_image() %></label><br>
+                         <label for="product_img">등록된 이미지 : <%=pa.getProd_revise_image() %></label><br>
                         
                           <input
                             type="file"
@@ -242,11 +242,32 @@
            			</form>
     <script type="text/javascript">
     	function product_updateBtn(){
-    		var result = confirm("수정하시겠습니까?");
-    		if(result){
-    		var form = document.product_update_form;
-    		form.submit();
-    		}
+    		let form = document.product_update_form;
+    		if(!form.product_name.value){
+    			alert("상품명을 입력하세요.");
+    			form.product_name.focus();
+    		}else if(!form.product_price.value){
+    			alert("상품 가격을 입력하세요.");
+    			form.product_price.focus();
+    		}else if(!form.product_img.value){
+    			alert("이미지 파일을 선택하세요.");
+    			form.product_img.focus();
+    		}else if(!form.product_info.value){
+				alert("상품 설명을 적어주세요.");
+				form.product_info.focus();
+			}else if(form.product_img.value){
+				const val = form.product_img.value;
+				const idx = val.lastIndexOf('.');
+				const type = val.substring(idx+1,val.length);
+				if(type == 'jpg' || type == 'jpeg' || type == 'png'){
+					form.submit();
+				}else{
+					alert("이미지 파일만 선택할 수 있습니다.");
+					form.product_img.value = '';
+				}
+			}
+    		
+    		
     	}
     </script>
                 </div>
